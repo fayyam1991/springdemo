@@ -12,48 +12,47 @@
 <body>
 
 
+
 	<div class="container">
 		<div class="row">
-			<div class="col-2">
-
+			<div class="col-2" >
 				<p>
-					<a class="btn btn-primary" href="/deaths" role="button"
-						aria-expanded="false" aria-controls="collapseExample"> Confirm
-						Deaths </a> 
-						<br><br>
-					<a class="btn btn-primary" href="/recoverd" role="button"
+				<a class="btn btn-primary" href="/recoverd" role="button"
 						aria-expanded="false" aria-controls="collapseExample">
 						Recovered </a>
+						<br><br>
+					<a class="btn btn-primary" href="/" role="button"
+						aria-expanded="false" aria-controls="collapseExample"> Home </a>
 				</p>
 			</div>
-			<div class="col-10">
 
+			<div class="col-10">
 				<h1>Coronavirus Tracker Application</h1>
-				<p>This application lists the current number of cases reported
-					across the globe!</p>
 
 				<div class="jumbotron">
-					<h1 class="display-4" th:text="${totalNoOfCases}"></h1>
-					<p class="lead">Total number of cases reported as of day.</p>
+					<h1 class="display-4" th:text="${totalNoOfDeathCases}"></h1>
+					<p class="lead">Total Number of Death Cases Reported.</p>
 				</div>
 
 				<table class="table">
 					<tr>
 						<th>State</th>
 						<th>Country</th>
-						<th>Total cases reported</th>
-						<th>Change since last day</th>
+						<th>Deaths</th>
 					</tr>
-					<tr th:each="locationStats : ${allStats}">
-						<td th:text="${locationStats.state}"></td>
-						<td th:text="${locationStats.country}"></td>
-						<td th:text="${locationStats.latestReportedCases}"></td>
-						<td th:text="${locationStats.diffFromPrevDay}"></td>
+					<tr th:each="deaths : ${deathStats}">
+						<td th:text="${deaths.state}"></td>
+						<td th:text="${deaths.country}"></td>
+						<td th:text="${deaths.deaths}"></td>
 					</tr>
 				</table>
 			</div>
 		</div>
 	</div>
+
+
+
+
 </body>
 
 <div class="shadow p-3 mb-5 bg-white rounded">Copyright © 2020 Md
