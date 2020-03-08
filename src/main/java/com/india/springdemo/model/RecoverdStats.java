@@ -1,7 +1,7 @@
 package com.india.springdemo.model;
 
-public class RecoverdStats {
-	
+public class RecoverdStats implements Comparable<RecoverdStats> {
+
 	private String state;
 	private String country;
 	private int recovered;
@@ -37,6 +37,11 @@ public class RecoverdStats {
 
 	public void setTotalRecovered(int totalRecovered) {
 		this.totalRecovered = totalRecovered;
+	}
+
+	@Override
+	public int compareTo(RecoverdStats o) {
+		return this.getCountry().compareTo(o.getCountry());
 	}
 
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -31,7 +32,7 @@ public class CoronaVirusDeathService {
 	
 	private static String CORONA_VIRUS_DEATH_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv";
 
-	private List<DeathStats> deathStats = new ArrayList<>();
+	private ArrayList<DeathStats> deathStats = new ArrayList<>();
 
 	@PostConstruct
 	@Scheduled(cron = "* * 1 * * *")
@@ -61,7 +62,7 @@ public class CoronaVirusDeathService {
 			StringReader csvBodyReader = new StringReader(apiOutput);
 			Iterable<CSVRecord> records = CSVFormat.DEFAULT.withHeader().parse(csvBodyReader);
 
-			List<DeathStats> tempStats = new ArrayList<>();
+			ArrayList<DeathStats> tempStats = new ArrayList<>();
 
 			for (CSVRecord record : records) {
 
@@ -74,6 +75,7 @@ public class CoronaVirusDeathService {
 			}
 
 			this.deathStats = tempStats;
+			Collections.sort(deathStats);
 
 		} catch (Exception e) {
 			// TODO: handle exception

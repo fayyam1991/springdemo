@@ -1,6 +1,6 @@
 package com.india.springdemo.model;
 
-public class DeathStats {
+public class DeathStats implements Comparable<DeathStats> {
 
 	private String state;
 	private String country;
@@ -28,6 +28,13 @@ public class DeathStats {
 
 	public void setDeaths(int deaths) {
 		this.deaths = deaths;
+	}
+
+	
+
+	@Override
+	public int compareTo(DeathStats o) {
+		return this.getCountry().compareTo(o.getCountry());
 	}
 
 }

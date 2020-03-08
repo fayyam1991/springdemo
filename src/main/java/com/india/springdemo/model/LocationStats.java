@@ -5,7 +5,7 @@ package com.india.springdemo.model;
  * @author Fayyam
  *
  */
-public class LocationStats {
+public class LocationStats implements Comparable<LocationStats>{
 
 	private String state;
 	private String country;
@@ -54,6 +54,11 @@ public class LocationStats {
 	 */
 	public void setDiffFromPrevDay(int diffFromPrevDay) {
 		this.diffFromPrevDay = diffFromPrevDay;
+	}
+	
+	@Override
+	public int compareTo(LocationStats o) {
+		return this.getCountry().compareTo(o.getCountry());
 	}
 
 }

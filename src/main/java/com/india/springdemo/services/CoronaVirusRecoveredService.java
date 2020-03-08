@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -68,6 +69,7 @@ public class CoronaVirusRecoveredService {
 			}
 
 			this.recoveredStats = tempStats;
+			Collections.sort(recoveredStats);
 
 		} catch (Exception e) {
 			// TODO: handle exception
