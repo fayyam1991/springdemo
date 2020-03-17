@@ -8,7 +8,7 @@ package com.india.springdemo.model;
 public class LocationStats implements Comparable<LocationStats>{
 
 	private String state;
-	private String country;
+	private String contry;
 	private int latestReportedCases;
 	private int diffFromPrevDay;
 
@@ -20,12 +20,12 @@ public class LocationStats implements Comparable<LocationStats>{
 		this.state = state;
 	}
 
-	public String getCountry() {
-		return country;
+	public String getContry() {
+		return contry;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
+	public void setContry(String country) {
+		this.contry = country;
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class LocationStats implements Comparable<LocationStats>{
 	
 	@Override
 	public int compareTo(LocationStats o) {
-		return this.getCountry().compareTo(o.getCountry());
+		return this.getContry().compareTo(o.getContry());
 	}
 
 }
