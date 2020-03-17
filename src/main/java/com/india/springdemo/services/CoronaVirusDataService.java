@@ -79,7 +79,7 @@ public class CoronaVirusDataService {
 
 			this.allStats = tempStats;
 			Collections.sort(allStats);
-
+ 
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
