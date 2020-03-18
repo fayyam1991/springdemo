@@ -21,6 +21,8 @@ public class SpringdemoApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**").allowedOrigins("*");
+                registry.addMapping("/**").allowedHeaders("Content-Type");
+                registry.addMapping("/**").allowedMethods("GET", "POST");
                 System.out.println("------------------allow called--------------------");
             }
         };
