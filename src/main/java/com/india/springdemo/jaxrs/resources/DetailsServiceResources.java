@@ -17,12 +17,13 @@ import com.india.springdemo.services.CoronaVirusDataService;
  */
 
 @RestController
+@RequestMapping("/api")
 public class DetailsServiceResources {
 
 	@Autowired
 	private CoronaVirusDataService service;
 
-	@RequestMapping(value = "info", method = RequestMethod.GET, produces = { "application/json" })
+	@RequestMapping(value = "deatils", method = RequestMethod.GET, produces = { "application/json" })
 	public List<LocationStats> getDetailInfo() {
 		return service.getAllStats();
 	}
