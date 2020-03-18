@@ -40,13 +40,13 @@
 				<table class="table">
 					<tr>
 						<th>State</th>
-						<th>Country</th>
+						<th>Cou ntry</th>
 						<th>Total cases reported</th>
 						<th>Change since last day</th>
 					</tr>
 					<tr th:each="locationStats : ${allStats}">
 						<td th:text="${locationStats.state}"></td>
-						<td th:text="${locationStats.country}"></td>
+						<td th:text="${locationStats.contry}"></td>
 						<td th:text="${locationStats.latestReportedCases}"></td>
 						<td th:text="${locationStats.diffFromPrevDay}"></td>
 					</tr>
