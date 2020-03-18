@@ -23,7 +23,7 @@ public class DetailsServiceResources {
 	@Autowired
 	private CoronaVirusDataService service;
 
-	@RequestMapping(value = "deatils", method = RequestMethod.GET, produces = { "application/json" })
+	@RequestMapping(value = "/deatils", method = RequestMethod.GET, produces = { "application/json" })
 	public List<LocationStats> getDetailInfo() {
 		return service.getAllStats();
 	}
