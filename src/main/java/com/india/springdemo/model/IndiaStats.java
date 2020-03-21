@@ -1,6 +1,6 @@
 package com.india.springdemo.model;
 
-public class IndiaStats {
+public class IndiaStats implements Comparable<IndiaStats>{
 
 	private String state;
 	private int totalIndianCases;
@@ -53,6 +53,10 @@ public class IndiaStats {
 	}
 	public void setNewCasesToday(int newCasesToday) {
 		this.newCasesToday = newCasesToday;
+	}
+	@Override
+	public int compareTo(IndiaStats o) {
+		return Integer.compare(this.getTotalIndianCases(), o.getTotalIndianCases());
 	}
 	
 	
