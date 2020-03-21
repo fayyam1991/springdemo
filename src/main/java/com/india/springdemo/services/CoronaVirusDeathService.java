@@ -35,7 +35,7 @@ public class CoronaVirusDeathService {
 	private ArrayList<DeathStats> deathStats = new ArrayList<>();
 
 	@PostConstruct
-	@Scheduled(cron = "* * 1 * * *")
+	@Scheduled(cron = "* 1 * * * *")
 	private void fetchDeathReported() throws IOException, InterruptedException, URISyntaxException {
 
 		DefaultHttpClient httpClient = new DefaultHttpClient();

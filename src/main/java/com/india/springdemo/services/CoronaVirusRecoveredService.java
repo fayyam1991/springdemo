@@ -29,7 +29,7 @@ public class CoronaVirusRecoveredService {
 	private List<RecoverdStats> recoveredStats = new ArrayList<>();
 
 	@PostConstruct
-	@Scheduled(cron = "* * 1 * * *")
+	@Scheduled(cron = "* 1 * * * *")
 	private void fetchRecoveredReported() throws IOException, InterruptedException, URISyntaxException {
 
 		DefaultHttpClient httpClient = new DefaultHttpClient();
