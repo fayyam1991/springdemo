@@ -56,7 +56,7 @@ public class IndiaStats implements Comparable<IndiaStats>{
 	}
 	@Override
 	public int compareTo(IndiaStats o) {
-		return Integer.compare(this.getTotalIndianCases(), o.getTotalIndianCases());
+		return Integer.compare( o.getTotalIndianCases(),this.getTotalIndianCases());
 	}
 	
 	
