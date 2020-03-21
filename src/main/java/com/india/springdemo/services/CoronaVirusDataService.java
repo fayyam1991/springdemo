@@ -4,12 +4,8 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PostConstruct;
 
@@ -37,9 +33,8 @@ public class CoronaVirusDataService {
 
 	private static String CORONA_VIRUS_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv";
 
-	private Map<String, LocationStats> allStats = new HashMap<>();
+	private List<LocationStats> allStats = new ArrayList<>();
 
-	@SuppressWarnings("deprecation")
 	@PostConstruct
 	@Scheduled(cron = "* 1 * * * *")
 	private void fetchCoronaViruisData() throws IOException, InterruptedException, URISyntaxException {
@@ -67,32 +62,26 @@ public class CoronaVirusDataService {
 			String apiOutput = EntityUtils.toString(entity);
 			StringReader csvBodyReader = new StringReader(apiOutput);
 			Iterable<CSVRecord> records = CSVFormat.DEFAULT.withHeader().parse(csvBodyReader);
-			ConcurrentHashMap<String, LocationStats> tempStats = new ConcurrentHashMap<>();
+
+			List<LocationStats> tempStats = new ArrayList<>();
+
 			for (CSVRecord record : records) {
 
-				// LocationStats locationStats = new LocationStats();
-				// locationStats.setState(record.get("Province/State"));
-				String country = record.get("Province/State");
+				LocationStats locationStats = new LocationStats();
+				locationStats.setState(record.get("Province/State"));
+				locationStats.setContry(record.get("Country/Region"));
 				Integer latestReportedCases = Integer.valueOf(record.get(record.size() - 1));
 				Integer prevDayReportedCases = Integer.valueOf(record.get(record.size() - 2));
-
-				LocationStats locationStats = tempStats.get(country);
-				if (locationStats != null) {
-					latestReportedCases = locationStats.getLatestReportedCases() + latestReportedCases;
-					prevDayReportedCases = locationStats.getDiffFromPrevDay() + prevDayReportedCases;
-				}
-				locationStats.setContry(country);
 				locationStats.setLatestReportedCases(latestReportedCases);
 				locationStats.setDiffFromPrevDay(latestReportedCases - prevDayReportedCases);
-				tempStats.put(country, locationStats);
+				tempStats.add(locationStats);
 			}
 
 			this.allStats = tempStats;
-
+			Collections.sort(allStats);
+ 
 		} catch (Exception e) {
 			// TODO: handle exception
-		} finally {
-			httpClient.close();
 		}
 	}
 
@@ -100,9 +89,7 @@ public class CoronaVirusDataService {
 	 * @return the allStats
 	 */
 	public List<LocationStats> getAllStats() {
-		List<LocationStats> collection = new ArrayList<>(allStats.values());
-		Collections.sort(collection);
-		return collection;
+		return allStats;
 	}
 
 }
