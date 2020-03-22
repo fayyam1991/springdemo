@@ -84,7 +84,7 @@ public class CoronaVirusIndiaService {
 	}
 
 	private int parsetoInteger(JsonElement value) {
-		if (value.toString().equals("null"))
+		if (value ==null || value.toString().equals("null"))
 			return 0;
 		return Integer.parseInt(value.toString());
 	}
