@@ -25,9 +25,9 @@ import com.india.springdemo.model.IndiaStats;
 
 @Service
 public class CoronaVirusIndiaService {
-	
+
 	String URL_INDIA_INFO = "https://raw.githubusercontent.com/ameerthehacker/corona-india-status/master/docs/covid19-indian-states.json";
-	
+
 	private ArrayList<IndiaStats> indiaInfo = new ArrayList<>();
 
 	@PostConstruct
@@ -60,18 +60,21 @@ public class CoronaVirusIndiaService {
 			JsonElement jsonElement = asJsonObject.get("data");
 			Set<Entry<String, JsonElement>> entrySet = jsonElement.getAsJsonObject().entrySet();
 			ArrayList<IndiaStats> tempList = new ArrayList<>();
-			for(Entry e : entrySet) {
+			for (Entry e : entrySet) {
 				String state = e.getKey().toString();
-				JsonObject value = (JsonObject)e.getValue();
-				int totalIndianCases = Integer.parseInt(value.get("totalIndianCases").toString());
-				int totalForeignCases = Integer.parseInt(value.get("totalForeignCases").toString());
-				int totalRecovered = Integer.parseInt(value.get("totalRecovered").toString());
-				int totalDeaths = Integer.parseInt(value.get("totalDeaths").toString());
-				int newCasesToday = Integer.parseInt(value.get("newCasesToday").toString());
-				IndiaStats indiaStats = new IndiaStats(state, totalIndianCases, totalForeignCases, totalRecovered, totalDeaths, newCasesToday);
-				tempList.add(indiaStats);
+				JsonObject value = (JsonObject) e.getValue();
+				int totalIndianCases = parsetoInteger(value.get("totalIndianCases"));
+				int totalForeignCases = parsetoInteger(value.get("totalForeignCases"));
+				int totalRecovered = parsetoInteger(value.get("totalRecovered"));
+				int totalDeaths = parsetoInteger(value.get("totalDeaths"));
+				int newCasesToday = parsetoInteger(value.get("newCasesToday"));
+				if (state != null && totalIndianCases != 0) {
+					IndiaStats indiaStats = new IndiaStats(state, totalIndianCases, totalForeignCases, totalRecovered,
+							totalDeaths, newCasesToday);
+					tempList.add(indiaStats);
+				}
 			}
-			
+
 			this.indiaInfo = tempList;
 			Collections.sort(indiaInfo);
 
@@ -80,11 +83,17 @@ public class CoronaVirusIndiaService {
 		}
 	}
 
+	private int parsetoInteger(JsonElement value) {
+		if (value.toString().equals("null"))
+			return 0;
+		return Integer.parseInt(value.toString());
+	}
+
 	/**
 	 * @return the allStats
 	 */
 	public List<IndiaStats> getIndiaInfo() {
 		return indiaInfo;
 	}
-	
+
 }
