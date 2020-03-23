@@ -55,12 +55,13 @@ public class CoronaVirusIndiaService {
 			// Now pull back the response object
 			HttpEntity entity = response.getEntity();
 			String apiOutput = EntityUtils.toString(entity);
+			@SuppressWarnings("deprecation")
 			JsonElement parser = new JsonParser().parse(apiOutput);
 			JsonObject asJsonObject = parser.getAsJsonObject();
 			JsonElement jsonElement = asJsonObject.get("data");
 			Set<Entry<String, JsonElement>> entrySet = jsonElement.getAsJsonObject().entrySet();
 			ArrayList<IndiaStats> tempList = new ArrayList<>();
-			for (Entry e : entrySet) {
+			for (Entry<?, ?> e : entrySet) {
 				String state = e.getKey().toString();
 				JsonObject value = (JsonObject) e.getValue();
 				int totalIndianCases = parsetoInteger(value.get("totalIndianCases"));
